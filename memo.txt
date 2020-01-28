@@ -1,2 +1,8 @@
 # 雛形作成用コマンド
 mvn -B archetype:generate -DgroupId=com.todo -DartifactId=SpringBoot-ToDo-Application -Dversion=1.0.0-SNAPSHOT -DarchetypeArtifactId=maven-archetype-quickstart
+
+# postgresqlの導入
+apt install postgresql
+service postgresql start
+su postgres -c "psql -c \"CREATE ROLE root LOGIN CREATE_DB\""
+su postgres -c "psql -c \"CREATE DATABASE ROOT OWNER ROOT\""

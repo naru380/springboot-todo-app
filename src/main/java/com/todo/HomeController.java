@@ -49,4 +49,11 @@ import java.util.List;
         todoItemService.save(todoItem);
         return "redirect:/";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteTodo(@RequestParam("id") String id) {
+        TodoItem todoItem = todoItemService.getTodoItemById(Long.parseLong(id));
+        todoItemService.delete(todoItem);
+        return "redirect:/";
+    }
 }

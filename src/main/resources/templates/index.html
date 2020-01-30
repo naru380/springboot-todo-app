@@ -5,21 +5,27 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>TODOアプリ</title>
 </head>
 <body>
-    <h1>TODOアプリ</h1>
-    <div class="container">
-        <h3>TODO追加</h3>
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">TODOアプリ</a>
+    </nav>
+    <div class="container my-5">
         <form action="/add" th:action="@{/add}" method="post">
-            <input type="text" name="title">
-            <input type="submit" value="追加">
+            <div class="input-group">
+                <input class="form-control" type="text" name="title">
+                <div class="input-group-append">
+                    <input class="btn btn-primary" type="submit" value="タスク追加">
+                </div>
+            </div>
         </form>
     </div>
-    <div class="container">
-        <h3>TODO一覧</h3>
-        <table>
-            <thead>
+    <div class="container my-5">
+        <h2 class="text-center">タスク一覧</h2>
+        <table class="table table-border-bottom table-hover">
+            <thead class="thead-dark">
                 <tr>
                     <th>番号</th>
                     <th>タスク名</th>
@@ -30,20 +36,27 @@
                 <tr th:each="yetTodoItem : ${yetTodoItemList}">
                     <td th:text="${yetTodoItem.id}"></td>
                     <td th:text="${yetTodoItem.title}"></td>
-                    <td>
-                        <form action="/done" th:action="@{/done}" method="post">
-                            <input type="hidden" name="id" th:value="${yetTodoItem.id}">
-                            <input class="btn btn-success" type="submit" value="完了">
-                        </form>
-                    </td>>
+                    <td class="float-right">
+                        <div style="display:inline-flex">
+                            <form action="/done" th:action="@{/done}" method="post">
+                                <input type="hidden" name="id" th:value="${yetTodoItem.id}">
+                                <input class="btn btn-success" type="submit" value="完了">
+                            </form>
+                            <span>　</span>
+                            <form action="/delete" th:action="@{/delete}" method="post">
+                                <input type="hidden" name="id" th:value="${yetTodoItem.id}">
+                                <input class="btn btn-danger" type="submit" value="削除">
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="container">
-        <h3>TODO一覧（済）</h3>
-        <table>
-            <thead>
+    <div class="container my-5">
+        <h2 class="text-center">完了タスク</h2>
+        <table class="table table-hover">
+            <thead class="thead-dark">
             <tr>
                 <th>番号</th>
                 <th>タスク名</th>
@@ -54,15 +67,18 @@
                 <tr th:each="doneTodoItem : ${doneTodoItemList}">
                     <td th:text="${doneTodoItem.id}"></td>
                     <td th:text="${doneTodoItem.title}"></td>
-                    <td>
+                    <td class="float-right" >
                         <form action="/yet" th:action="@{/yet}" method="post">
                             <input type="hidden" name="id" th:value="${doneTodoItem.id}">
-                            <input type="submit" value="戻す">
+                            <input class="btn btn-secondary" type="submit" value="戻す">
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -5,4 +5,5 @@ mvn -B archetype:generate -DgroupId=com.todo -DartifactId=SpringBoot-ToDo-Applic
 apt install postgresql
 service postgresql start
 su postgres -c "psql -c \"CREATE ROLE root LOGIN CREATE_DB\""
+psql -c "ALTER ROLE root WITH PASSWORD 'root'"
 su postgres -c "psql -c \"CREATE DATABASE ROOT OWNER ROOT\""

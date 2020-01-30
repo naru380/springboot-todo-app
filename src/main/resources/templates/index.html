@@ -9,11 +9,60 @@
 </head>
 <body>
     <h1>TODOアプリ</h1>
-    <div class="add_todo">
-        <h3>TODOの追加</h3>
+    <div class="container">
+        <h3>TODO追加</h3>
+        <form action="/add" th:action="@{/add}" method="post">
+            <input type="text" name="title">
+            <input type="submit" value="追加">
+        </form>
     </div>
-    <div class="todo_list">
-        <h3>TODOリスト</h3>
+    <div class="container">
+        <h3>TODO一覧</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>番号</th>
+                    <th>タスク名</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="yetTodoItem : ${yetTodoItemList}">
+                    <td th:text="${yetTodoItem.id}"></td>
+                    <td th:text="${yetTodoItem.title}"></td>
+                    <td>
+                        <form action="/done" th:action="@{/done}" method="post">
+                            <input type="hidden" name="id" th:value="${yetTodoItem.id}">
+                            <input class="btn btn-success" type="submit" value="完了">
+                        </form>
+                    </td>>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <h3>TODO一覧（済）</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>番号</th>
+                <th>タスク名</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="doneTodoItem : ${doneTodoItemList}">
+                    <td th:text="${doneTodoItem.id}"></td>
+                    <td th:text="${doneTodoItem.title}"></td>
+                    <td>
+                        <form action="/yet" th:action="@{/yet}" method="post">
+                            <input type="hidden" name="id" th:value="${doneTodoItem.id}">
+                            <input type="submit" value="戻す">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
